@@ -100,6 +100,15 @@
 							Profile
 						</v-list-tile-title>
 					</v-list-tile>
+
+					  <v-list-tile router to="/admin" v-if="$can('manage')">
+						<v-list-tile-title>
+							<v-icon left>
+							list
+							</v-icon>
+							Manage
+						</v-list-tile-title>
+					</v-list-tile>
 					<v-list-tile  @click="signOut">
 					<v-list-tile-title>
 						<v-icon left>
@@ -116,13 +125,14 @@
 			<v-layout column align-center>
 				<v-flex class="mt-5">
 					<v-avatar size="100">
-						<img src="avatar-1.png">
+						<img src="logo.png">
 					</v-avatar>
 					<p class="white--text subheading mt-1">
-						Benjamin Ace
+					HRH Konect
 					</p>
 				</v-flex>
 			</v-layout>
+
 			<v-list>
 				<v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
 					<v-list-tile-action>
@@ -132,6 +142,62 @@
 						<v-list-tile-title class="white--text">{{link.text}}</v-list-tile-title>
 					</v-list-tile-content>
 				</v-list-tile>
+
+				     <v-list-tile to="/admin" v-if="$can('manage')">
+        <v-list-tile-action>
+          <v-icon class="white--text">home</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-title class="white--text"> Dashboard</v-list-tile-title>
+      </v-list-tile>
+
+				     <v-list-tile to="/admin/requests" v-if="$can('manage')">
+        <v-list-tile-action>
+          <v-icon class="white--text">list</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-title class="white--text"> Manage Requests</v-list-tile-title>
+      </v-list-tile>
+        <v-list-tile to="/admin/Healthworkers" v-if="$can('manage')">
+        <v-list-tile-action>
+          <v-icon class="white--text">account_circle</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-title class="white--text">Health Workers</v-list-tile-title>
+      </v-list-tile>
+        <v-list-tile to="/admin/WorkerRatings" v-if="$can('manage')">
+        <v-list-tile-action>
+          <v-icon class="white--text">check_circle_outline</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-title class="white--text"> Worker Ratings</v-list-tile-title>
+      </v-list-tile>
+				     <v-list-tile to="/admin/facilities" v-if="$can('manage')">
+        <v-list-tile-action>
+          <v-icon class="white--text">line_weight</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-title class="white--text">Facilities</v-list-tile-title>
+      </v-list-tile>
+				 <v-list-group prepend-icon="security" no-action v-if="$can('manage')">
+        <v-list-tile slot="activator">
+          <v-list-tile-title class="white--text">Access Control</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile v-for="(access_control, i) in access_controls" :key="i"
+          :to="{path:access_control.path}">
+          <v-list-tile-action>
+            <v-icon v-text="access_control.icon" class="white--text"></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title v-text="access_control.label" class="white--text"></v-list-tile-title>
+        </v-list-tile>
+      </v-list-group>
+        <v-list-group prepend-icon="folder" no-action v-if="$can('manage')" class="white--text">
+        <v-list-tile slot="activator">
+          <v-list-tile-title class="white--text">Reports</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile v-for="(report, i) in report" :key="i"
+          :to="{path:report.path}" class="white--text">
+          <v-list-tile-action>
+            <v-icon v-text="report.icon" class="white--text"></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title v-text="report.label" class="white--text"></v-list-tile-title>
+        </v-list-tile>
+      </v-list-group>
 				<v-list-tile @click="signOut">
 					<v-list-tile-action>
 						<v-icon>exit_to_app</v-icon>
@@ -161,10 +227,43 @@ export default {
 			color: '',
 			message: '',
 			snackbar: false,
-			drawer: false,
+			drawer: true,
 			links: [
-				{icon: 'account_circle', text: 'Dashboard', route: '/profile'},
+				
+				{icon: 'gavel', text: 'Make Request', route: '/'},
 			],
+			      access_controls: [
+         
+        
+        {
+          path: '/admin/users',
+          label: 'User Accounts',
+          icon: 'people'
+        },
+        {
+          path: '/admin/Permissions',
+          label: 'Permissions',
+          icon: 'visibility'
+        },
+        {
+          path: '/admin/Roles',
+          label: 'Role',
+          icon: 'contacts'
+        },
+        {
+          path: '/admin/roleUsers',
+          label: 'Assign Roles',
+          icon: 'verified_user'
+        },
+      ],
+        report: [
+        {
+          path: '/admin/report/requests',
+          label: 'Monthly Requests',
+          icon: 'assignment_turned_in'
+        },
+
+      ],
 		}
 	},
 	created(){

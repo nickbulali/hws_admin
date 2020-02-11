@@ -102,17 +102,19 @@
                 >
                   <v-popup content="Me"></v-popup>
                 </v-marker>
-                  <v-btn class="primary white--text text-none" style="position: absolute; z-index: 500; bottom: 5%;" block  @click="newPos">Next</v-btn>
+                  <v-btn class="primary white--text text-none" style="position: absolute; z-index: 500; bottom: 5%;" large  @click="newPos">Next</v-btn>
+
+
+
               </v-map>
             </v-flex>
           </v-layout>
         </div>
         <div v-if="progress == 'Time'">
-          <v-layout column>
-              <v-flex xs12>
+        <v-layout justify-center row wrap>  
+                <v-flex xs12 sm4 > 
                 <p class="headline">Pick Time</p>
-              </v-flex>
-              <v-flex xs12>
+           
                 <div v-if="progress == 'Time'">
                   <v-menu
                     ref="menu11"
@@ -147,8 +149,7 @@
                     ></v-time-picker>
                   </v-menu>
                 </div>
-              </v-flex>
-              <v-flex xs12>
+           
                 <div v-if="progress == 'Time'">
                   <v-menu
                     ref="menu12"
@@ -183,18 +184,23 @@
                     ></v-time-picker>
                   </v-menu>
                 </div>
-              </v-flex>
+     
+
+        <v-flex xs12 sm4 > 
+              <v-btn class="primary white--text text-none"  block @click="selectCategory" :loading="loading" large>Next</v-btn>
+            </v-flex>
+     
+   </v-flex>
           </v-layout>
-          <v-btn class="primary white--text text-none mx-5" style="position: absolute; bottom: 5%; left:-12%"  block @click="selectCategory">Next</v-btn>
-        </div>
+    </div>
         <div v-if="progress == 'Category'">
-          <v-layout column>
-            <v-flex xs12>
+          <v-layout justify-center row wrap>  
+                <v-flex xs12 sm4 > 
               <p class="headline">Pick Category</p>
             </v-flex>
             <v-flex xs12>
-              <v-layout column>
-                <v-flex xs12  class="mb-2">
+             <v-layout justify-center row wrap>  
+                <v-flex xs12  sm4>
                   <v-layout row wrap>
                     <v-flex xs5 class="mt-2">
                     <v-card
@@ -235,13 +241,8 @@
                         </v-card-text>
                       </v-card>
                     </v-flex>
-                  </v-layout>
-                </v-flex>
-                <v-flex xs12 class="mt-1">
-                  <v-layout row wrap>
-                    <v-flex xs5>
-                      <v-divider></v-divider>
-                      <v-card
+                   <v-flex xs5 class="mt-2">
+                    <v-card
                         elevation="0"
                         @click="pickCategory(3)"
                         :color="clinicalOfficerColor" class="white--text login-circle"
@@ -259,9 +260,8 @@
                         </v-card-text>
                       </v-card>
                     </v-flex>
-                    <v-divider vertical class="mx-4 mt-3"></v-divider>
-                    <v-flex xs5>
-                      <v-divider></v-divider>
+                    <v-divider vertical class="mx-4"></v-divider>
+                    <v-flex xs5 class="mt-2">
                       <v-card
                         elevation="0"
                         @click="pickCategory(4)"
@@ -270,23 +270,32 @@
                         <v-card-text>
                         <div align="center" class="mt-3">
                             <v-img
-                              src="pharmacist.png"
+                             src="pharmacist.png"
                               aspect-ratio="0.7"
                             ></v-img>
                           </div>
                           <div>
-                            <div align="center" class="secondary--text title mb-1 mt-2 mb-4">Pharmacist</div>
+                            <div align="center" class="secondary--text title mb-1 mt-2">Pharmacist</div>
                           </div>
                         </v-card-text>
                       </v-card>
                     </v-flex>
-                  </v-layout>
+                  
+                
+              
+        <v-flex xs12 sm4 > 
+              <v-btn class="primary white--text text-none" @click="listWorkers" :loading="loading" block>Next</v-btn>
+            </v-flex>
+            
+                 </v-layout>
                 </v-flex>
               </v-layout>
             </v-flex>
-            <v-flex 12>
-              <v-btn class="primary white--text text-none mx-5" style="position: absolute; bottom: 5%; left:-12%"  block @click="listWorkers" :loading="loading">Next</v-btn>
-            </v-flex>
+            <br>
+            <br>
+  
+
+          
           </v-layout>
         </div>
         <div v-if="progress == 'Worker List'">
@@ -414,7 +423,7 @@
         </div>
         <div v-if="progress == 'Profile'">
           <v-img
-            height="100%"
+            height="150"
             src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
           >
             <v-layout column>
@@ -558,30 +567,39 @@
         </v-flex>
         <div v-if="$can('individual_request_service') || $can('hospital_request_service')">
           <div>
-            <v-flex xs12 class="mt-4">
-              <div class="primary login-circle mt-5" @click="newRequest">
-                <v-layout row wrap>
-                  <v-flex xs3>
-                    <div align="center" class="mt-3">
-                      <v-img
-                        src="pin.png"
-                        aspect-ratio="0.8"
-                        max-width="200"
-                      ></v-img>
-                    </div>
-                  </v-flex>
-                  <v-flex xs9>
-                    <v-layout column>
-                      <v-flex xs12>
-                        <p class="white--text title mt-5 mb-5 ml-5">Request Here</p>
-                      </v-flex>
-                      <v-flex xs12>
+           <v-flex xs12 md12>
+          <div align="center" class="mt-3">
 
-                      </v-flex>
-                    </v-layout>
-                  </v-flex>
-                </v-layout>
-              </div>
+   <v-card
+      class="mx-auto text-center"
+      color="primary"
+      dark
+      max-width="600"
+    >
+      <v-card-text>
+        <v-sheet color="rgba(0, 0, 0, .12)">
+          <v-card-text>
+  <v-flex xs5>
+            <v-img
+            src="pin.png"
+            height="125px"
+            contain
+            ></v-img>
+          </v-flex>
+      </v-card-text>
+        </v-sheet>
+      </v-card-text>
+  
+   
+      </v-card-text>
+  
+      <v-divider></v-divider>
+  
+      <v-card-actions class="justify-center">
+        <v-btn @click="newRequest" block text color="secondary" >Request Here</v-btn>
+      </v-card-actions>
+    </v-card>
+  </div>
             </v-flex>
             <!--<v-flex xs12>
               <div class="primary login-circle mt-3">

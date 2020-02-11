@@ -27,48 +27,68 @@
             </v-btn>
         </v-toolbar>
         <v-card-text>
-            <v-layout column>
-                <div>
-                    <p class="title"><b>Basic</b></p>
-                    <v-flex xs12>
-                        <v-text-field
-                            v-model="profile.fname"
-                            :rules="inputRules"
-                            prepend-inner-icon="person"
-                            name="fname"
-                            label="First Name"
-                            outline
-                            class="text_field_2"
-                        ></v-text-field>
-                    </v-flex>
-                    <v-flex xs12>
-                        <v-text-field
-                            v-model="profile.lname"
-                            :rules="inputRules"
-                            prepend-inner-icon="person"
-                            name="lname"
-                            label="Last Name"
-                            outline
-                            class="text_field_2 mt-2"
-                        ></v-text-field>
-                    </v-flex>
-                    <v-flex xs12>
-                        <v-text-field
-                            v-model="profile.email"
-                            :rules="inputRules"
-                            prepend-inner-icon="mail"
-                            name="email"
-                            label="E-mail"
-                            outline
-                            class="text_field_2 mt-2"
-                        ></v-text-field>
-                    </v-flex>
-                </div>
-                <v-divider class="my-4"></v-divider>
-                <div v-if="$can('health_worker_profile')">
-                    <p class="title"><b>Professional</b></p>
-                </div>
-                <v-flex xs12>
+            <v-layout row justify-center>
+        <v-card class="elevation-0" color="white" max-width="500">
+            <Loading v-if='authLoading'/>
+                        <v-layout column>
+                            <v-flex xs12>
+                            
+                                
+                            </v-flex>
+                        </v-layout>
+                    <v-card-text>
+                        <v-form
+                            ref="form"
+                            v-model="valid"
+                            lazy-validation
+                        >
+                        <v-layout row wrap class="ma-2">
+                                 <p class="title"><b>Contact Person</b></p>
+                        <v-flex xs12 sm12 md12>
+                                <v-text-field
+                                    v-model="profile.fname"
+                                    :rules="nameRules"
+                                    prepend-inner-icon="person"
+                                    name="fname"
+                                    label="First Name"
+                                    required
+                                    class="text_field_2 mt-4"
+                                    outline
+                                        
+                                ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm12 md12>
+                                <v-text-field
+                                    v-model="profile.lname"
+                                    :rules="nameRules"
+                                    prepend-inner-icon="person"
+                                    name="lname"
+                                    label="Last Name"
+                                    required
+                                    class="text_field_2 mt-4"
+                                    outline
+                                        
+                                ></v-text-field>
+                            </v-flex>
+
+                             <v-flex xs12 sm12 md12>
+                                <v-text-field
+                                    v-model="profile.email"
+                                    :rules="nameRules"
+                                    prepend-inner-icon="mail"
+                                    name="lname"
+                                    label="Email"
+                                    required
+                                    class="text_field_2 mt-4"
+                                    outline
+                                        
+                                ></v-text-field>
+                            </v-flex>
+
+            </v-layout>
+            <v-layout row wrap class="ma-2">
+  <p class="title"><b>Health worker Profile</b></p>
+               <v-flex xs12>
                     <v-select
                         v-model="profile.gender_id"
                         :rules="inputRules"
@@ -222,14 +242,85 @@
                         outline
                     ></v-textarea>
                 </v-flex>
-                <v-flex xs12 class="mt-3">
-                    <v-btn block depressed class="primary text-none" @click="updateProfile" :loading="loading">
-                        Save
-                        <v-icon right small>save</v-icon>
-                    </v-btn>
-                </v-flex>
-                
-            </v-layout>
+
+
+
+
+
+                <div v-if="$can('hospital_profile')">
+                    
+                </div>
+                         <v-flex xs12 sm12 md12 v-if="$can('hospital_profile')">
+                            <p class="title"><b>Facility Information</b></p>
+                                <v-text-field
+                                    v-model="profile.name"
+                                    :rules="nameRules"
+                                    prepend-inner-icon="store"
+                                    name="lname"
+                                    label="Facility Name"
+                                    required
+                                    class="text_field_2 mt-4"
+                                    outline
+                                        
+                                ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm12 md12 v-if="$can('hospital_profile')">
+                                <v-select
+                                    v-model="profile.account_type"
+                                    :rules="accountTypeRules"
+                                    :items="facility_type"
+                                    item-value="id"
+                                    item-text="name"
+                                    prepend-inner-icon="how_to_reg"
+                                    name="accountType"
+                                    label="Facility Type"
+                                    required
+                                    class="text_field_2 mt-4"
+                                    outline
+                                ></v-select>
+                            </v-flex>
+
+
+                            <v-flex xs12 sm12 md12 v-if="$can('hospital_profile')">
+                                <v-select
+                                    v-model="profile.account_type"
+                                    :rules="accountTypeRules"
+                                    :items="facility_level"
+                                    item-value="id"
+                                    item-text="name"
+                                    prepend-inner-icon="how_to_reg"
+                                    name="accountType"
+                                    label="Facility Level"
+                                    required
+                                    class="text_field_2 mt-4"
+                                    outline
+                                ></v-select>
+                            </v-flex>
+                            
+                             <v-flex xs12 sm12 md12 v-if="$can('hospital_profile')">
+                                <v-text-field
+                                    v-model="profile.license_no"
+                                    :rules="nameRules"
+                                    prepend-inner-icon="chrome_reader_mode"
+                                    name="lname"
+                                    label="License No"
+                                    required
+                                    class="text_field_2 mt-4"
+                                    outline
+                                        
+                                ></v-text-field>
+                            </v-flex>
+                        </v-layout>
+                            </v-form>
+                            <v-card-actions>                                
+                                <v-btn style="opacity: 0.8; box-shadow: -3px 3px 17px 6px rgba(0,0,0,0.75);" large block class="primary text-none my-3" block :disabled="!valid" @click="create" :loading="loading">
+                                    Register
+                                </v-btn>
+                            </v-card-actions>
+                        
+                    </v-card-text>
+        </v-card>
+    </v-layout>
         </v-card-text>
         </v-card>
     </v-dialog>
@@ -318,6 +409,19 @@ export default {
                 {id: 1, name: 'Male'},
                 {id: 2, name: 'Female'},
             ],
+           facility_level: [
+                {id: 1, name: 'Hospital'},
+                {id: 2, name: 'Health Center'},
+                {id: 3, name: 'Dispensary'},
+                {id: 4, name: 'Clinic'},
+            ],
+
+
+              facility_type: [
+                {id: 1, name: 'Private'},
+                {id: 2, name: 'Public'},
+            ],
+
 
             profile: {
                 id: '',

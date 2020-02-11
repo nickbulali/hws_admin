@@ -3,18 +3,26 @@
 	<v-snackbar v-model="snackbar" :timeout="4000" top :color="color">
 		<span>{{message}}</span>
 	</v-snackbar>
+		  <v-img
+    src="stethoscope.jpg"
+    height=100%;
+    width=1;
+    >
 	<v-toolbar app color="secondary" flat>
 		<v-btn small fab flat to="login">
 			<v-icon class="white--text">
 				arrow_back
 			</v-icon>
 		</v-btn>
+ 
+
 			<v-toolbar-title class="text-uppercase white--text">
 				<span class="white--text text-none">Create an Account</span>
 			</v-toolbar-title>
 			</v-toolbar>
+			  <v-container class="mb-5">
 	<v-layout row justify-center>
-		<v-card class="elevation-0" color="transparent" max-width="500">
+		<v-card class="elevation-0" color="white" max-width="500">
 			<Loading v-if='authLoading'/>
 						<v-layout column>
 							<v-flex xs12>
@@ -135,6 +143,8 @@
 					</v-card-text>
 		</v-card>
 	</v-layout>
+</v-container>
+</v-img>
 	</div>
 </template>
 <script>

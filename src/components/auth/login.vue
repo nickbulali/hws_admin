@@ -16,7 +16,13 @@
 					<p class="white--text">Login to continue HRH Connect</p>
 				</div>
 			</v-flex>
-			<v-flex xs12 class="ma-2">
+
+
+
+
+
+
+			<v-flex  xs12 sm6   class="ma-2">
 				<v-card 
 					color="transparent"
 					class="elevation-0">
@@ -26,8 +32,8 @@
 							v-model="valid"
 							lazy-validation
 						>
-							<v-layout row wrap>
-								<v-flex xs12>
+							<v-layout justify-center row wrap>	
+								<v-flex xs12 sm4 > 
 									<v-text-field
 										v-model="username"
 										:rules="emailRules"
@@ -37,8 +43,7 @@
 										outline
 										class="text_field"
 									></v-text-field>
-								</v-flex>
-								<v-flex xs12>
+								
 									<v-text-field
 										v-model="password"
 										prepend-inner-icon="lock"
@@ -52,7 +57,7 @@
 								</v-flex>
 								<v-flex xs12 class="mb-5">
 									<div align="right" class="mt-3">
-										<a to="reset-password" class="white--text">Forgot Password?</a>
+										
 									</div>
 								</v-flex>
 							</v-layout>
@@ -60,22 +65,33 @@
 					</v-card-text>
 					<v-card-actions>
 						<v-layout column class="ma-1">
-							<v-flex xs12 class="mt-5">
-								<div align="right">
-									<v-btn style="opacity: 0.8; box-shadow: -3px 3px 17px 6px rgba(0,0,0,0.75);" large block color="primary text-none" :disabled="!valid" @click="login" :loading="loading">
-										Log In
-										<v-icon>
-											arrow_right_alt
-										</v-icon>
+							<v-flex xs12 sm4 >
+								<div align="center" >
+
+
+<v-btn small class="mx-2 mb-3 text-none" large flatblock color="primary text-none"  :disabled="!valid" @click="login" :loading="loading">
+										<a class="white--text">Login</a>
 									</v-btn>
+
 								</div>
 							</v-flex>
 							<v-flex>
 								<div align="center" class="mt-2">
-									<v-btn small class="mx-2 mb-3 text-none" large flat router to="/register">
+									<v-btn small class="mx-2 mb-3 text-none" large flat router to="/register" >
 										<a class="white--text">New User? Sign Up</a>
-									</v-btn>									
+									</v-btn>	
+
 								</div>
+                               <div align="center" class="mt-2">
+									
+										<v-btn small class="mx-2 mb-3 text-none" large flat router to="/reset-password" >
+										<a class="white--text">Forgot Password?</a>
+									</v-btn>	
+									
+									
+																	
+								</div>
+
 							</v-flex>
 						</v-layout>						
 					</v-card-actions>
@@ -92,13 +108,15 @@
 	import Loading from './loading'
 	import { mapState } from 'vuex'
 	import Vue from 'vue'
+    import AuthPopUp from '@/components/auth/authPopUp'
 
 	Vue.use(DisableAutocomplete);
 
 	export default {
 		name: 'Login',
 		components: {
-			Loading
+			Loading,
+			AuthPopUp
 		},
 		data: () => {
 			return {
