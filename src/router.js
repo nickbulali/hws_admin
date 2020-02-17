@@ -16,6 +16,7 @@ import store from './store/index'
 import AdminDashboard from './views/admin/index.vue'
 import Requests from './views/admin/requests.vue'
 import Report from './views/admin/report/requests.vue'
+import Average from './views/admin/report/averageratings.vue'
 import Healthworkers from './views/admin/Healthworkers.vue'
 
 
@@ -161,6 +162,14 @@ export default new Router({
       path: '/admin/report/requests',
       name: 'Report',
       component: Report,
+       beforeEnter: ifAuthenticated,
+    },
+
+
+    {
+      path: '/admin/report/averageratings',
+      name: 'Average',
+      component: Average,
        beforeEnter: ifAuthenticated,
     },
 

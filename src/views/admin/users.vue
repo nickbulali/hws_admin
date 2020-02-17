@@ -132,7 +132,7 @@
         <v-data-table
           hide-actions
           :headers="headers"
-          :items="user"
+          :items="item"
           :loading="loader"
           :search="search"
         >
@@ -141,7 +141,7 @@
           <td class="text-xs-left">{{ props.item.email }}</td>
           <td class="text-xs-left">{{ props.item.phone_no}}</td>
       
-          <td class="justify-center layout px-0">
+          <!-- <td class="justify-center layout px-0">
           <v-btn
             outline
             small
@@ -162,7 +162,7 @@
             Delete
             <v-icon right dark>delete</v-icon>
           </v-btn>
-        </td>
+        </td> -->
         </template>
       </v-data-table>
       <div v-if="length" class="text-xs-center">
@@ -220,9 +220,10 @@
         { text: 'Name', value: 'first_name' },
         { text: 'Email Address', value: 'email' },
         { text: 'Phone', align: 'left', value: 'phone' },
-        { text: 'Actions', sortable: false, value: 'action' }
+        // { text: 'Actions', sortable: false, value: 'action' }
       ],
       user: [],
+      item: [],
       editedIndex: -1,
       editedItem: {
         first_name: '',
@@ -279,7 +280,7 @@
         apiCall({url: '/api/user?' + this.query, method: 'GET' })
         .then(resp => {
           console.log(resp)
-          this.user = resp.data;
+          this.item = resp.data;
           this.loader = false
        
         })

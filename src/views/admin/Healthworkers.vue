@@ -42,7 +42,7 @@
         </v-layout>
         <v-data-table
           :headers="headers"
-          :items="healthworkers"
+          :items="item"
           :loading="loader"
           class="elevation-1"
           :search="search"
@@ -55,17 +55,32 @@
            <td class="text-xs-left">{{ props.item.licence_number }}</td>
         <td class="text-xs-left">{{ props.item.experience_years }} yrs</td>
           <td class="justify-center layout px-0">
-          <v-btn
+
+             <v-btn     
+            v-if="props.item.verified === '1' "
             outline
             small
-            title="Edit"
+            title="Verified"
+            color="blue"
+            flat
+            >
+          Verified 
+            <v-icon right dark>done</v-icon>
+          </v-btn>
+
+
+          <v-btn
+           v-if="props.item.verified === '0' "
+            outline
+            small
+            title="verify"
             color="teal"
             flat
-            @click="editItem(props.item)">
-            Edit
-            <v-icon right dark>edit</v-icon>
+            @click="verifyworker(props.item)">
+            Verify
+            <v-icon right dark>check</v-icon>
           </v-btn>
-          <v-btn
+        <!--   <v-btn
             outline
             small
             title="Delete"
@@ -74,7 +89,7 @@
             @click="deleteItem(props.item)">
             Delete
             <v-icon right dark>delete</v-icon>
-          </v-btn>
+          </v-btn> -->
         </td>
         </template>
       </v-data-table>
@@ -184,7 +199,8 @@
         apiCall({ url: "/api/healthworkers?" + this.query, method: "GET" })
           .then(resp => {
             console.log("item is",resp);
-            this.healthworkers = resp;
+            this.item = resp;
+              console.log("hii ni ",this.item);
             this.loader=false
             this.pagination.total = resp.total;
             this.pagination.per_page = resp.per_page;
@@ -261,6 +277,24 @@
             this.close()
           }
         }
+      },
+
+       verifyworker(item) {
+          const index = this.item.indexOf(item)
+          this.item.splice(index, 1)
+          apiCall({url: '/api/verify/'+item.id_number, method: 'GET' })
+          .then(resp => {
+            console.log('THE RESP IS', this.item.indexOf(item))
+              this.message = 'Worker Verified Succesfully';
+              this.snackbar = true; 
+
+          })
+          .catch(error => {
+              this.loading = false
+              console.log(error.response)
+              this.loadingMethod(false)
+          })
+
       },
       deleteItem (item) {
 

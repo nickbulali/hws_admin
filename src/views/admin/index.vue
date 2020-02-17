@@ -181,7 +181,7 @@ lg3 style="padding:10px;">
 xs12
 md6
 lg3 style="padding:10px;">
-<v-card color=" red darken-4" class="white--text">
+<v-card color=" orange darken-4" class="white--text">
   <v-layout>
     <v-flex xs5>
       <v-img
@@ -195,6 +195,37 @@ lg3 style="padding:10px;">
         <div>
           <div class="headline">Pending Requests</div>
           <div>{{pending}}</div>
+
+        </div>
+      </v-card-title>
+    </v-flex>
+  </v-layout>
+  <v-divider light></v-divider>
+  <v-card-actions class="pa-3">
+   <v-btn to="/admin/requests" flat color="white">View More</v-btn>
+ </v-card-actions>
+</v-card>
+</v-flex>
+
+
+<v-flex  sm6
+xs12
+md6
+lg3 style="padding:10px;">
+<v-card color=" red darken-4" class="white--text">
+  <v-layout>
+    <v-flex xs5>
+      <v-img
+      src="stop.png"
+      height="125px"
+      contain
+      ></v-img>
+    </v-flex>
+    <v-flex xs7>
+      <v-card-title primary-title>
+        <div>
+          <div class="headline">Rejected Requests</div>
+          <div>{{rejected}}</div>
 
         </div>
       </v-card-title>
@@ -480,6 +511,7 @@ lg3 style="padding:10px;">
       revenue:'',
       complete:'',
       pending:'',
+      rejected:'',
       facilities:'',
       DailyRequest:[],
       productDialog: false,
@@ -566,6 +598,18 @@ lg3 style="padding:10px;">
             console.log(error.response)
           })
         }
+
+         {
+          apiCall({url: '/api/rejected', method: 'GET' })
+          .then(resp => {
+            console.log(resp)
+            this.rejected = resp;
+          })
+          .catch(error => {
+            console.log(error.response)
+          })
+        }
+
 
         {
           apiCall({url: '/api/pending', method: 'GET' })

@@ -48,10 +48,13 @@
           :search="search"
         >
         <template v-slot:items="props">
+
+          <td class="text-xs-left">{{ props.item.client.first_name }} {{ props.item.client.last_name }}</td>
           <td class="text-xs-left">{{ props.item.worker.first_name }} {{ props.item.worker.last_name }}</td>
           <td class="text-xs-left">{{ props.item.worker.email }}</td>
           <td class="text-xs-left">{{ props.item.worker.phone_no}}</td>
-          <td class="text-xs-left">{{ props.item.Rating }}</td>
+          <td class="text-xs-left">{{ props.item.rating }}</td>
+          <td class="text-xs-left">{{ props.item.comment }}</td>
 
 
          <!--  <td class="justify-center layout px-0">
@@ -131,10 +134,12 @@
           //   sortable: false,
           //   value: 'created_at'
           // },
-          { text: 'Name', align: 'left', value: 'first_name' },
+          { text: 'Client Name', align: 'left', value: 'first_name' },
+          { text: 'Employee Name', align: 'left', value: 'first_name' },
           { text: 'Email', align: 'left', value: 'name' },
           { text: 'Phone No.', align: 'left', value: 'name' },
-          { text: 'Average Rating /5', align: 'left', value: 'residence' },
+          { text: 'Average Rating /5', align: 'left', value: 'rating' },
+          { text: 'Comment', align: 'left', value: 'comment' },
  
           // { text: 'Actions', align: 'center', value: 'actions' },
         ],
@@ -180,7 +185,7 @@
         if (this.search != '') {
             this.query = this.query+'&search='+this.search;
         }
-        apiCall({ url: "/api/average?" + this.query, method: "GET" })
+        apiCall({ url: "/api/ratings?" + this.query, method: "GET" })
           .then(resp => {
             console.log("item is",resp);
             this.ratings = resp;

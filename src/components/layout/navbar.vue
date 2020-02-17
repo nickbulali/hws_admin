@@ -4,7 +4,7 @@
 			<span>{{message}}</span>
 		</v-snackbar>
 		<v-toolbar app color="secondary" flat>
-			<!--<v-toolbar-side-icon class="white--text" @click="drawer = !drawer"></v-toolbar-side-icon>-->
+			<v-toolbar-side-icon class="white--text" @click="drawer = !drawer"></v-toolbar-side-icon>
 			<v-avatar
                   size="36px"
                 >
@@ -133,7 +133,7 @@
 				</v-flex>
 			</v-layout>
 
-			<v-list>
+			<!-- <v-list>
 				<v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
 					<v-list-tile-action>
 						<v-icon class="white--text">{{link.icon}}</v-icon>
@@ -141,7 +141,7 @@
 					<v-list-tile-content>
 						<v-list-tile-title class="white--text">{{link.text}}</v-list-tile-title>
 					</v-list-tile-content>
-				</v-list-tile>
+				</v-list-tile> -->
 
 				     <v-list-tile to="/admin" v-if="$can('manage')">
         <v-list-tile-action>
@@ -230,7 +230,7 @@ export default {
 			drawer: true,
 			links: [
 				
-				{icon: 'gavel', text: 'Make Request', route: '/'},
+				{icon: 'assignment', text: 'Make Request', route: '/'},
 			],
 			      access_controls: [
          
@@ -261,6 +261,12 @@ export default {
           path: '/admin/report/requests',
           label: 'Monthly Requests',
           icon: 'assignment_turned_in'
+        },
+
+        {
+          path: '/admin/report/averageratings',
+          label: 'Average Ratings',
+          icon: 'check_circle_outline'
         },
 
       ],
